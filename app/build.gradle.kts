@@ -121,3 +121,14 @@ dependencies {
   "ksp"(libs.androidx.room.compiler)
   "ksp"(libs.moshi.kotlin.codegen)
 }
+
+tasks.register<Copy>("copyApkToApkDevelopment") {
+  from(layout.buildDirectory.file("outputs/apk/debug/app-debug.apk"))
+  into(file("${project.rootDir}/apk development"))
+  rename { "reclaim-app-debug.apk" }
+}
+
+project.afterEvaluate {
+  tasks.findByName("assembleDebug")?.finalizedBy("copyApkToApkDevelopment")
+}
+
