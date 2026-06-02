@@ -1,0 +1,6 @@
+{
+  "name": "Reclaim",
+  "description": "Break short-form video addictions and reclaim your focus through physical vitality, custom habits logging, Pomodoro environments, and Gemini digital detox coaching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

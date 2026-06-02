@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "366043003014",
+    "firebase_url": "https://reclaimapp-eeb52-default-rtdb.firebaseio.com",
+    "project_id": "reclaimapp-eeb52",
+    "storage_bucket": "reclaimapp-eeb52.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366043003014:android:100db20913934b75b8f907",
+        "android_client_info": {
+          "package_name": "com.redlionstudio.reclaim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366043003014-3m0jgb0u67ohbtsjok24a3q24ao22bgr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpGUC_cauuKHneb-OZouKc6Bsmo8hVjkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366043003014-3m0jgb0u67ohbtsjok24a3q24ao22bgr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
