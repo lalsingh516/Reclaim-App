@@ -27,19 +27,18 @@ object FirebaseSyncManager {
     fun initialize(context: Context) {
         if (isFirebaseInitialized) return
 
-        var apiKey = BuildConfig.FIREBASE_API_KEY
-        var projectId = BuildConfig.FIREBASE_PROJECT_ID
-        var appId = BuildConfig.FIREBASE_APP_ID
+        val apiKey = BuildConfig.FIREBASE_API_KEY
+        val projectId = BuildConfig.FIREBASE_PROJECT_ID
+        val appId = BuildConfig.FIREBASE_APP_ID
 
-        // Fallback to user's direct production credentials if placeholders
-        if (apiKey.isBlank() || apiKey == "MY_FIREBASE_API_KEY" || apiKey == "FIREBASE_API_KEY") {
-            apiKey = "AIzaSyBpGUC_cauuKHneb-OZouKc6Bsmo8hVjkY"
-        }
-        if (projectId.isBlank() || projectId == "MY_FIREBASE_PROJECT_ID" || projectId == "FIREBASE_PROJECT_ID") {
-            projectId = "reclaimapp-eeb52"
-        }
-        if (appId.isBlank() || appId == "MY_FIREBASE_APP_ID" || appId == "FIREBASE_APP_ID") {
-            appId = "1:366043003014:android:100db20913934b75b8f907"
+        val isConfigured = apiKey.isNotBlank() && apiKey != "MY_FIREBASE_API_KEY" && apiKey != "FIREBASE_API_KEY" &&
+                projectId.isNotBlank() && projectId != "MY_FIREBASE_PROJECT_ID" && projectId != "FIREBASE_PROJECT_ID" &&
+                appId.isNotBlank() && appId != "MY_FIREBASE_APP_ID" && appId != "FIREBASE_APP_ID"
+
+        if (!isConfigured) {
+            Log.i(TAG, "Firebase keys are placeholders in Secrets. Running app-level sync locally on SQLite.")
+            _isFirebaseActive.value = false
+            return
         }
 
         try {
