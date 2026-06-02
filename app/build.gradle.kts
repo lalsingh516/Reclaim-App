@@ -122,10 +122,35 @@ dependencies {
   "ksp"(libs.moshi.kotlin.codegen)
 }
 
-tasks.register<Copy>("copyApkToApkDevelopment") {
-  from(layout.buildDirectory.file("outputs/apk/debug/app-debug.apk"))
-  into(file("${project.rootDir}/apk development"))
-  rename { "reclaim-app-debug.apk" }
+tasks.register("copyApkToApkDevelopment") {
+  // Capture values at configuration time
+  val buildDirFile = layout.buildDirectory.get().asFile
+  val apkFile = File(buildDirFile, "outputs/apk/debug/app-debug.apk")
+  val rootDirFile = project.rootDir
+  val destDir = File(rootDirFile, "apk development")
+  val destFile = File(destDir, "reclaim-app-debug.apk")
+
+  // Declare inputs/outputs so Gradle knows task relationships
+  inputs.file(apkFile)
+  outputs.file(destFile)
+
+  doLast {
+    if (!destDir.exists()) {
+      destDir.mkdirs()
+    }
+    if (apkFile.exists()) {
+      val sizeBytes = apkFile.length()
+      println("Source APK size: $sizeBytes bytes")
+      if (sizeBytes > 0) {
+        apkFile.copyTo(destFile, overwrite = true)
+        println("Successfully copied full APK to ${destFile.absolutePath} ($sizeBytes bytes)")
+      } else {
+        println("WARNING: Source APK file exists but is 0 bytes.")
+      }
+    } else {
+      println("ERROR: Source APK file does not exist at ${apkFile.absolutePath}")
+    }
+  }
 }
 
 project.afterEvaluate {
